@@ -1,8 +1,7 @@
 # elte-ik-orsi-1-beadando-reloaded
 Első beadandó az ELTE IK Osztott Rendszerek Implementációja és Sepcifikációja (ORSI) tárgyához.
 
-## Leírás
-## Első beadandó
+# Leírás
 
 ## Keretsztori:
 
@@ -70,7 +69,10 @@ A program olvassa be az adatokat, majd C folyamatot indítva számítsa ki az eg
 ```
 
 #### A fenti térkép vizuális megjelenítése:
-![alt text](https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/img/map_sample.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_sample.png">
+</p>
+
 A fenti térkép vizuális megjelenítése
 A térképen két piros X jelzi a két helyet, ahol letelepedni kívánnak a civilizációk, körülötte az egyes mezők értéke olvasható.
 
@@ -101,41 +103,41 @@ A többi civilizáció kezdőhelyét nem ismerik az egyes szálak, így a számo
 
 ### Alaptípusok:
 
-    **FIELD:** a lehetséges (alap)mezőtípusok felsorolásra.
-    **DIRECTION**: a 4 égtájból kiindulva 8 különböző irányt fogunk megkülönböztetni a mozgás megkönnyítésére.
-    **Coordinate:** egész számok reprezentációjával egy (x,y) páros.
-    **Tile:** Egy koordináta és a hozzá tartozó mező kettőse - a világtérkép mezői.
-    **Map:** a térképet reprezentáló osztály. A fenti 4 típust használja a működéséhez. Az üres térkép 0 sorból és 0 oszlopból áll.
+**FIELD:** a lehetséges (alap)mezőtípusok felsorolásra.
+**DIRECTION**: a 4 égtájból kiindulva 8 különböző irányt fogunk megkülönböztetni a mozgás megkönnyítésére.
+**Coordinate:** egész számok reprezentációjával egy (x,y) páros.
+**Tile:** Egy koordináta és a hozzá tartozó mező kettőse - a világtérkép mezői.
+**Map:** a térképet reprezentáló osztály. A fenti 4 típust használja a működéséhez. Az üres térkép 0 sorból és 0 oszlopból áll.
 
 ### Az egyes, implementálandó függvények működése:
 
-    * Az alaptípusokhoz tartozó kiíró operátorok túlterhelése (sdt::ostream& operator<<) alapvetően nem szükséges (ezért van kikommentelve), de az esetleges debuggolást nagyban megkönnyítheti nektek a feladat elkészítése közben. Ezek működése elég ha valamilyen szöveges módon egyértelműen azonosítja a kapott értéket (pl. az égtájaknál rövidítés - SW, NE, N, a koordinátáknak rendezett formátum - (5,3), a mezőtípusokra a mező neve kisbetűkkel - pl. swamp).
+* Az alaptípusokhoz tartozó kiíró operátorok túlterhelése (sdt::ostream& operator<<) alapvetően nem szükséges (ezért van kikommentelve), de az esetleges debuggolást nagyban megkönnyítheti nektek a feladat elkészítése közben. Ezek működése elég ha valamilyen szöveges módon egyértelműen azonosítja a kapott értéket (pl. az égtájaknál rövidítés - SW, NE, N, a koordinátáknak rendezett formátum - (5,3), a mezőtípusokra a mező neve kisbetűkkel - pl. swamp).
 
-    * A koordináták összehasonlításához a bool operator<(const Coordinate& a, const Coordinate& b); függvény implementációja szükséges. Ezt értelmezzük úgy, hogy ha az a-hoz tartozó x koordináta kisebb, mint b-nek az x koordinátája, akkor a<b, ha nagyobb, akkor b<a, egyenlő esetben az y koordináták viszonya dönti el a rendezést.
+* A koordináták összehasonlításához a bool operator<(const Coordinate& a, const Coordinate& b); függvény implementációja szükséges. Ezt értelmezzük úgy, hogy ha az a-hoz tartozó x koordináta kisebb, mint b-nek az x koordinátája, akkor a<b, ha nagyobb, akkor b<a, egyenlő esetben az y koordináták viszonya dönti el a rendezést.
 
-    * A Map típushoz el **kell** elkészíteni a beolvasáshoz használható operátort (std::istream& operator>>), mely beolvassa N és M értékét (rows_ és cols_ adattagok), majd feltölti a számok alapján a belső vektort (lásd: Map::set_tile(..)).
-    
-    * A field_from_int(..) függvény a megfelelő FIELD-enum értékét adja vissza a lentebb olvasható sorszám alapján. Felhasználása a térkép beolvasására való(tipp: static_cast<>).
+* A Map típushoz el **kell** elkészíteni a beolvasáshoz használható operátort (std::istream& operator>>), mely beolvassa N és M értékét (rows_ és cols_ adattagok), majd feltölti a számok alapján a belső vektort (lásd: Map::set_tile(..)).
 
-    * A field_value(..) függvény a kapott mező értékét adja vissza a lentebb található értékek figyelembevételével.
+* A field_from_int(..) függvény a megfelelő FIELD-enum értékét adja vissza a lentebb olvasható sorszám alapján. Felhasználása a térkép beolvasására való(tipp: static_cast<>).
 
-    * A tile_value(..) függvény a benne található mező típus értékét adja vissza (amit a field_value szolgáltat).
+* A field_value(..) függvény a kapott mező értékét adja vissza a lentebb található értékek figyelembevételével.
 
-    * A Map::Map() konstruktor nullára inicializálja a sorok és oszlopok számát.
+* A tile_value(..) függvény a benne található mező típus értékét adja vissza (amit a field_value szolgáltat).
 
-    * A Map::rows() függvény az eltárolt térképen található sorok számát adja meg.
+* A Map::Map() konstruktor nullára inicializálja a sorok és oszlopok számát.
 
-    * A Map::cols() függvény az eltárolt térképen található oszlopok számát adja meg.
+* A Map::rows() függvény az eltárolt térképen található sorok számát adja meg.
 
-    * A Map::in_range(..) függvény eldönti egy adott x és y koordinátáról, hogy az benne van -e a térkép hasznos részében (a rows_ és cols_ felhasználásával). Ha nincs, akkor hamisat ad vissza.
+* A Map::cols() függvény az eltárolt térképen található oszlopok számát adja meg.
 
-    * A Map::tile_at(..) függvény visszaad egy adott i és j koordinátához tartozó (világtérkép) mezőt. Amennyiben ez a térképen belül van, akkor az eltárolt értéket, ellenkező esetben FIELD::SEA típusút. A koordináta mind a két esetben a kapott i és j értéket tartalmazza.
+* A Map::in_range(..) függvény eldönti egy adott x és y koordinátáról, hogy az benne van -e a térkép hasznos részében (a rows_ és cols_ felhasználásával). Ha nincs, akkor hamisat ad vissza.
 
-    * A Map::set_tile(..) metódus az adott i és j koordinátához tartozó (alap)mezőt állítja be a térképen - figyelembe véve azt is, hogy ez a térkép valós részéhez tartozzon (azon kívül esőt nem bánt).
+* A Map::tile_at(..) függvény visszaad egy adott i és j koordinátához tartozó (világtérkép) mezőt. Amennyiben ez a térképen belül van, akkor az eltárolt értéket, ellenkező esetben FIELD::SEA típusút. A koordináta mind a két esetben a kapott i és j értéket tartalmazza.
 
-    * A Map::tile_in_direction(..) függvény egy kiinduló koordináta alapján visszaadja azt a (világtérkép) mezőt, amely a megadott irányban található. Fontos figyelembe venni, hogy az indexelés nem egyértelműen történik, ennek megadásához a lentebbi (térkép indexelés) kép és hozzá tartozó szöveg ad segítséget. Mivel hatszögekkel ábrázoljuk a világunkat, összesen hat irányt kell megvizsgálni - figyelembe véve mindegyik esetben, hogy páros vagy páratlan oszlopszámú mezőről indulunk ki - mivel ettől függ, hogy a mátrixos ábrázolásnak (belső map_ vector) melyik (i,j) eleme fog kelleni. Az implementáláshoz érdemes a lenti (első) ábrán megfigyelni, hogy a hat irány hogy változtatja a koordinátákat páros és páratlan oszlopszám kiindulva.
-    
-    * A Map::get_tiles_in_radius(..) a lentebb leírt módszerek valamelyike alapján visszaadja egy megadott (i,j) koordinátából kiindulva az r sugarú környezetben lévő mezők listáját. Érdemes felhasználni a Map::tile_in_direction(..) metódust ennek implementálásakor.
+* A Map::set_tile(..) metódus az adott i és j koordinátához tartozó (alap)mezőt állítja be a térképen - figyelembe véve azt is, hogy ez a térkép valós részéhez tartozzon (azon kívül esőt nem bánt).
+
+* A Map::tile_in_direction(..) függvény egy kiinduló koordináta alapján visszaadja azt a (világtérkép) mezőt, amely a megadott irányban található. Fontos figyelembe venni, hogy az indexelés nem egyértelműen történik, ennek megadásához a lentebbi (térkép indexelés) kép és hozzá tartozó szöveg ad segítséget. Mivel hatszögekkel ábrázoljuk a világunkat, összesen hat irányt kell megvizsgálni - figyelembe véve mindegyik esetben, hogy páros vagy páratlan oszlopszámú mezőről indulunk ki - mivel ettől függ, hogy a mátrixos ábrázolásnak (belső map_ vector) melyik (i,j) eleme fog kelleni. Az implementáláshoz érdemes a lenti (első) ábrán megfigyelni, hogy a hat irány hogy változtatja a koordinátákat páros és páratlan oszlopszám kiindulva.
+
+* A Map::get_tiles_in_radius(..) a lentebb leírt módszerek valamelyike alapján visszaadja egy megadott (i,j) koordinátából kiindulva az r sugarú környezetben lévő mezők listáját. Érdemes felhasználni a Map::tile_in_direction(..) metódust ennek implementálásakor.
 
 ### Az alapmezők (FIELD):
 
@@ -159,7 +161,9 @@ A mezők neve előtti sorszám azt is jelzi, hogy a bemeneti fájlban milyen int
 
 A térkép reprezentálásához a (hatszög)rácsra mátrixként fogunk tekinteni. Ehhez azonban figyelembe kell venni annak elhelyezkedését és orientációját. A hatszögekre úgy tekintünk majd, hogy azoknak oldala néz “felfelé” és “lefelé”, azaz északi és déli irányba. Emiatt a kelet-nyugati irányban csúcsokkal találkozunk - itt tehát az “átjárás” nem lesz egyértelmű. Ahhoz, hogy az elhelyezkedésből adódó problémákat kezelni tudjuk, a páratlan számú oszlopokat fogjuk (megjelenítésileg) elcsúsztatni lefelé. Egy sor bejárásánál - avagy a kelet / nyugat irányú elmozdulás esetében - ha a kiindulási mező oszlopszáma páros, akkor dél-keleti / dél-nyugati irányba fogunk mozdulni, páratlan esetben pedig észak-kelet/észak-nyugat lesz az elmozdulás iránya. Az észak-dél tengelyen értelemszerűen fogunk lépkedni, az x koordináta változtatásával.
 
-![alt text](https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/img/map_indexing.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_indexing.png">
+</p>
 A térkép érdemleges részének indexelési módja
 
 ### A térkép érdemleges részének indexelési módja
@@ -185,7 +189,9 @@ Szemléltetésként érdemes lehet egyfajta “körlapra” gondolni az adott me
 
 Az alábbi példában a középen lévő, bordóra színezett mezőtől egy távolságra vannak a sárgával jelölt, két távolságra a zölddel, háromra a kékkel, négyre a szürkével, öttel a sötétbarnával stb. jelölt mezők.
 
-![alt text](https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/img/map_radius.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_radius.png">
+</p>
 A környező mezők és az ahhoz tartozó sugár
 
 A fent linkelt ZIP állományban található egy test.cpp fájl is - ezt az impl.cpp fájllal egybe fordítva és futtatva lehet (alapjaiban) ellenőrizni azt, hogy a metódusokat helyesen implementáltátok e. Ez nem teljes körű UNIT-test, csupán arra szolgál, hogy gyors visszajelzést kapjatok a kódról és az implementálandó metódusok működésének helyességéről.
