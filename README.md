@@ -70,7 +70,7 @@ A program olvassa be az adatokat, majd C folyamatot indítva számítsa ki az eg
 
 #### A fenti térkép vizuális megjelenítése:
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_sample.jpg">
+  <img src="https://github.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/raw/master/img/map_sample.jpg">
 </p>
 
 A fenti térkép vizuális megjelenítése
@@ -162,7 +162,7 @@ A mezők neve előtti sorszám azt is jelzi, hogy a bemeneti fájlban milyen int
 A térkép reprezentálásához a (hatszög)rácsra mátrixként fogunk tekinteni. Ehhez azonban figyelembe kell venni annak elhelyezkedését és orientációját. A hatszögekre úgy tekintünk majd, hogy azoknak oldala néz “felfelé” és “lefelé”, azaz északi és déli irányba. Emiatt a kelet-nyugati irányban csúcsokkal találkozunk - itt tehát az “átjárás” nem lesz egyértelmű. Ahhoz, hogy az elhelyezkedésből adódó problémákat kezelni tudjuk, a páratlan számú oszlopokat fogjuk (megjelenítésileg) elcsúsztatni lefelé. Egy sor bejárásánál - avagy a kelet / nyugat irányú elmozdulás esetében - ha a kiindulási mező oszlopszáma páros, akkor dél-keleti / dél-nyugati irányba fogunk mozdulni, páratlan esetben pedig észak-kelet/észak-nyugat lesz az elmozdulás iránya. Az észak-dél tengelyen értelemszerűen fogunk lépkedni, az x koordináta változtatásával.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_indexing.jpg">
+  <img src="https://github.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/raw/master/img/map_indexing.jpg">
 </p>
 A térkép érdemleges részének indexelési módja
 
@@ -190,7 +190,7 @@ Szemléltetésként érdemes lehet egyfajta “körlapra” gondolni az adott me
 Az alábbi példában a középen lévő, bordóra színezett mezőtől egy távolságra vannak a sárgával jelölt, két távolságra a zölddel, háromra a kékkel, négyre a szürkével, öttel a sötétbarnával stb. jelölt mezők.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/master/img/map_radius.jpg">
+  <img src="https://github.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/raw/master/img/map_radius.jpg">
 </p>
 A környező mezők és az ahhoz tartozó sugár
 
