@@ -19,32 +19,32 @@ Ahhoz, hogy biztos eredménnyel tudj szolgálni, úgy érezted, nem elég a köz
 
 ## A megoldandó probléma tehát a következő:
 
-A bemeneti fájlban (world.map) elsőként egy hexagonális (hatszögletű) rácson alapuló világ térképe található. A térképnél esetén feltesszük, hogy annak “hasznos része” az, amit a fájlból tudunk beolvasni, az összes, fájlban nem szereplő mezőre a világot körülölelő tengerként tekintünk.
+A bemeneti fájlban *(world.map)* elsőként egy hexagonális (hatszögletű) rácson alapuló világ térképe található. A térképnél esetén feltesszük, hogy annak *“hasznos része”* az, amit a fájlból tudunk beolvasni, az összes, fájlban nem szereplő mezőre a világot körülölelő tengerként tekintünk.
 
-A térkép hasznos részéhez meg van adva hány sorból és hány oszlopból áll (N x M), ezt követik az egyes mezők azonosítói.
+A térkép hasznos részéhez meg van adva hány sorból és hány oszlopból áll *(N x M)*, ezt követik az egyes mezők azonosítói.
 
-A fájlban található C db. civilizáció szeretne letelepedni a világban, ehhez meg is kaptuk azoknak a mezőknek a helyét, ahol a fővárosukat kívánják megalapítani.
+A fájlban található *C db*. civilizáció szeretne letelepedni a világban, ehhez meg is kaptuk azoknak a mezőknek a helyét, ahol a fővárosukat kívánják megalapítani.
 
-Annak érdekében, hogy felmérjék a környezetüket, mindenki számára ki kell számolnunk, hogy a városa körüli területnek mennyi az “értéke”. Ennek a mérésére minden egyes mezőtípushoz egy egész számot fogunk rendelni. A területi értéket az egyes mezők értékeinek összegeként fogjuk meghatározni.
+Annak érdekében, hogy felmérjék a környezetüket, mindenki számára ki kell számolnunk, hogy a városa körüli területnek mennyi az *“értéke”*. Ennek a mérésére minden egyes mezőtípushoz egy egész számot fogunk rendelni. A területi értéket az egyes mezők értékeinek összegeként fogjuk meghatározni.
 
-A hexagonális elrendezésnek köszönhetően a környezetre tekinthetünk úgy, mint a kiinduló mezőtől legfeljebb r lépésben elérhető mezők halmazára (ennek pontosabb leírását és kiszámolását lásd a segítségnél).
+A hexagonális elrendezésnek köszönhetően a környezetre tekinthetünk úgy, mint a kiinduló mezőtől legfeljebb *r* lépésben elérhető mezők halmazára (ennek pontosabb leírását és kiszámolását lásd a segítségnél).
 
-A feladatunk meghatározni, hogy az egyes civilizációk körüli (r sugarú) területeknek mennyi az összértéke! Az így kiszámított eredményeket (a bemeneti civilizációk sorrendjében) írjuk ki az output.txt fájlba, minden sorba egy értéket írva!
+A feladatunk meghatározni, hogy az egyes civilizációk körüli *(r sugarú)* területeknek mennyi az összértéke! Az így kiszámított eredményeket (a bemeneti civilizációk sorrendjében) írjuk ki az *output.txt* fájlba, minden sorba egy értéket írva!
 
 Tekintve, hogy egy-egy ilyen számítás sok időt is igénybe vehet, ezért a megoldást párhuzamos módon készítjük el, melyben minden egyes értéket külön szálon fogunk számolni!
 
 ### Az inputfájl felépítése az alábbi:
 
-Az első sorban két nemnegatív egész szám olvasható (jelölje ezt N és M), ezt követően egy N x M méretű, azaz N sorból és M oszlopból felépített világ térképe.
+Az első sorban két nemnegatív egész szám olvasható *(jelölje ezt N és M)*, ezt követően egy *N x M* méretű, azaz *N* sorból és *M* oszlopból felépített világ térképe.
 
-Az ezt következő N sor a térkép egy-egy sorának reprezentációját tartalmazza, pozitív egész számokat az [0..10] intervallumból szóközzel tagolva (lásd lejjebb, az alapmezőknél).
+Az ezt következő N sor a térkép egy-egy sorának reprezentációját tartalmazza, pozitív egész számokat az *[0..10]* intervallumból szóközzel tagolva (lásd lejjebb, az alapmezőknél).
 
-Ez után két nemnegatív egész számot lehet olvasni - az egyik a világban letelepedni kívánó civilizációk számát jelenti (C), a másik pedig azt adja meg, hogy mekkora sugarú környezetben szeretnénk vizsgálni egy-egy választott terület “értékét” (r). Feltehetjük, hogy C, r >= 0.
+Ez után két nemnegatív egész számot lehet olvasni - az egyik a világban letelepedni kívánó civilizációk számát jelenti (C), a másik pedig azt adja meg, hogy mekkora sugarú környezetben szeretnénk vizsgálni egy-egy választott terület “értékét” (r). Feltehetjük, hogy *C, r >= 0.*
 
-Ezt követően összesen C db koordináta-páros található szóközzel tagolva - minden egyes népcsoport számára azt a helyet, ahova a fővárost fogják tenni (sor- és oszlopszám a lentiekkel összhangban).
+Ezt követően összesen *C* db koordináta-páros található szóközzel tagolva - minden egyes népcsoport számára azt a helyet, ahova a fővárost fogják tenni (sor- és oszlopszám a lentiekkel összhangban).
 Feltehetjük, hogy az input fájl a fent leírtaknak megfelelően van kitöltve, és nem található benne pl. negatív, valós vagy olyan szám, ami nem felel meg mezőknek, pontosan annyi civilizáció van felsorolva, mint a C értéke, senki nem telepedne a térképen kívülre, erre külön ellenőrzést nem kell végezni (az ugyan oda telepedés megengedett, mivel a jelen feladatban nem lesz különbség vagy konkurenciából fakadó probléma).
 
-A program olvassa be az adatokat, majd C folyamatot indítva számítsa ki az egyes területekhez tartozó megoldást, majd az így kapott eredményeket írja ki az output.txt fájlba. A fő szál területi értékekhez kapcsolódó számítást ne végezzen! Az egyes folyamatoknak három adatot kell megkapnia - a térképet, a kezdőpozíciót és a sugarat.
+A program olvassa be az adatokat, majd *C* folyamatot indítva számítsa ki az egyes területekhez tartozó megoldást, majd az így kapott eredményeket írja ki az *output.txt* fájlba. A fő szál területi értékekhez kapcsolódó számítást ne végezzen! Az egyes folyamatoknak három adatot kell megkapnia - a **térképet**, a **kezdőpozíciót** és a **sugarat**.
 
 #### Egy példa bemenet (world.map):
 
@@ -74,19 +74,19 @@ A program olvassa be az adatokat, majd C folyamatot indítva számítsa ki az eg
 </p>
 
 A fenti térkép vizuális megjelenítése
-A térképen két piros X jelzi a két helyet, ahol letelepedni kívánnak a civilizációk, körülötte az egyes mezők értéke olvasható.
+A térképen két piros *X* jelzi a két helyet, ahol letelepedni kívánnak a civilizációk, körülötte az egyes mezők értéke olvasható.
 
 ## Az implementációs feladat
 
-A feladat megoldásához kiindulásnak innen tudtok letölteni egy ZIP állományt. Ebben három fájlt találtok - egy test.cpp, egy types.hpp és egy impl.cpp nevű fájlt.
+A feladat megoldásához kiindulásnak ~~innen~~ tudtok letölteni egy ZIP állományt. Ebben három fájlt találtok - egy *test.cpp*, egy *types.hpp* és egy *impl.cpp* nevű fájlt.
 
-A types.hpp fájlnak tartalmán nem kell változtatni - ezt csupán érdemes nagyjából átnézni, hogy mi minden található benne - a lentebbi segítségben található metódusok és osztályok prototípusát / definícióját tartalmazza.
+A *types.hpp* fájlnak tartalmán nem kell változtatni - ezt csupán érdemes nagyjából átnézni, hogy mi minden található benne - a lentebbi segítségben található metódusok és osztályok prototípusát/definícióját tartalmazza.
 
-A programozási feladat első része az impl.cpp fájlban található függvények rendes implementációja (működésüket lásd lejjebb).
+A programozási feladat első része az *impl.cpp* fájlban található függvények rendes implementációja (működésüket lásd lejjebb).
 
-A másik rész a feladathoz tartozó főprogram elkészítése (lehetőség szerint main.cpp), mely beolvassa az adatokat, elindítja a szálakat, összegyűjti a megoldást és elkészíti a kimeneti fájlt a fent leírtak alapján. Ez utóbbinál a külön szálon elindított függvény feladata a térképen a megfelelő pozíció körüli mezők összegyűjtése, majd ezek élvezeti értékeinek összegzése, és az így kapott eredmény visszaadása.
+A másik rész a feladathoz tartozó főprogram elkészítése *(lehetőség szerint main.cpp)*, mely beolvassa az adatokat, elindítja a szálakat, összegyűjti a megoldást és elkészíti a kimeneti fájlt a fent leírtak alapján. Ez utóbbinál a külön szálon elindított függvény feladata a térképen a megfelelő pozíció körüli mezők összegyűjtése, majd ezek élvezeti értékeinek összegzése, és az így kapott eredmény visszaadása.
 
-**Fontos:** A bemeneti fájlban előforduló pozícióknál a számozást (sor-oszlop) 1-től értjük, ám a programban az indexelést 0-tól fogjuk kezdeni mind a sorok, mind az oszlopok számát illetően! A konvertálást a beolvasáskor érdemes elvégezni! Pl.:
+**Fontos:** A **bemeneti** fájlban előforduló pozícióknál a számozást (sor-oszlop) **1-től** értjük, ám a **programban** az indexelést **0-tól** fogjuk kezdeni mind a sorok, mind az oszlopok számát illetően! A konvertálást a **beolvasáskor** érdemes elvégezni! Pl.:
 
 ```
 ...
@@ -111,33 +111,33 @@ A többi civilizáció kezdőhelyét nem ismerik az egyes szálak, így a számo
 
 ### Az egyes, implementálandó függvények működése:
 
-* Az alaptípusokhoz tartozó kiíró operátorok túlterhelése (sdt::ostream& operator<<) alapvetően nem szükséges (ezért van kikommentelve), de az esetleges debuggolást nagyban megkönnyítheti nektek a feladat elkészítése közben. Ezek működése elég ha valamilyen szöveges módon egyértelműen azonosítja a kapott értéket (pl. az égtájaknál rövidítés - SW, NE, N, a koordinátáknak rendezett formátum - (5,3), a mezőtípusokra a mező neve kisbetűkkel - pl. swamp).
+* Az alaptípusokhoz tartozó kiíró operátorok túlterhelése *(sdt::ostream& operator<<)* alapvetően nem szükséges (ezért van kikommentelve), de az esetleges debuggolást nagyban megkönnyítheti nektek a feladat elkészítése közben. Ezek működése elég ha valamilyen szöveges módon egyértelműen azonosítja a kapott értéket (pl. az égtájaknál rövidítés - SW, NE, N, a koordinátáknak rendezett formátum - (5,3), a mezőtípusokra a mező neve kisbetűkkel - pl. swamp).
 
-* A koordináták összehasonlításához a bool operator<(const Coordinate& a, const Coordinate& b); függvény implementációja szükséges. Ezt értelmezzük úgy, hogy ha az a-hoz tartozó x koordináta kisebb, mint b-nek az x koordinátája, akkor a<b, ha nagyobb, akkor b<a, egyenlő esetben az y koordináták viszonya dönti el a rendezést.
+* A koordináták összehasonlításához a bool *operator<(const Coordinate& a, const Coordinate& b)*; függvény implementációja **szükséges**. Ezt értelmezzük úgy, hogy ha az a-hoz tartozó x koordináta kisebb, mint b-nek az x koordinátája, akkor *a<b*, ha nagyobb, akkor *b<a*, *egyenlő esetben* az *y* koordináták viszonya dönti el a rendezést.
 
-* A Map típushoz el **kell** elkészíteni a beolvasáshoz használható operátort (std::istream& operator>>), mely beolvassa N és M értékét (rows_ és cols_ adattagok), majd feltölti a számok alapján a belső vektort (lásd: Map::set_tile(..)).
+* A Map típushoz el **kell** elkészíteni a beolvasáshoz használható operátort *(std::istream& operator>>)*, mely beolvassa *N* és *M* értékét (rows_ és cols_ adattagok), majd feltölti a számok alapján a belső vektort (lásd: Map::set_tile(..)).
 
-* A field_from_int(..) függvény a megfelelő FIELD-enum értékét adja vissza a lentebb olvasható sorszám alapján. Felhasználása a térkép beolvasására való(tipp: static_cast<>).
+* A *field_from_int(..)* függvény a megfelelő FIELD-enum értékét adja vissza a lentebb olvasható sorszám alapján. Felhasználása a térkép beolvasására való (tipp: static_cast<>).
 
-* A field_value(..) függvény a kapott mező értékét adja vissza a lentebb található értékek figyelembevételével.
+* A *field_value(..)* függvény a kapott mező értékét adja vissza a lentebb található értékek figyelembevételével.
 
-* A tile_value(..) függvény a benne található mező típus értékét adja vissza (amit a field_value szolgáltat).
+* A *tile_value(..)* függvény a benne található mező típus értékét adja vissza (amit a field_value szolgáltat).
 
-* A Map::Map() konstruktor nullára inicializálja a sorok és oszlopok számát.
+* A *Map::Map()* konstruktor nullára inicializálja a sorok és oszlopok számát.
 
-* A Map::rows() függvény az eltárolt térképen található sorok számát adja meg.
+* A *Map::rows()* függvény az eltárolt térképen található sorok számát adja meg.
 
-* A Map::cols() függvény az eltárolt térképen található oszlopok számát adja meg.
+* A *Map::cols()* függvény az eltárolt térképen található oszlopok számát adja meg.
 
-* A Map::in_range(..) függvény eldönti egy adott x és y koordinátáról, hogy az benne van -e a térkép hasznos részében (a rows_ és cols_ felhasználásával). Ha nincs, akkor hamisat ad vissza.
+* A *Map::in_range(..)* függvény eldönti egy adott x és y koordinátáról, hogy az benne van -e a térkép hasznos részében (a rows_ és cols_ felhasználásával). Ha nincs, akkor hamisat ad vissza.
 
-* A Map::tile_at(..) függvény visszaad egy adott i és j koordinátához tartozó (világtérkép) mezőt. Amennyiben ez a térképen belül van, akkor az eltárolt értéket, ellenkező esetben FIELD::SEA típusút. A koordináta mind a két esetben a kapott i és j értéket tartalmazza.
+* A *Map::tile_at(..)* függvény visszaad egy adott i és j koordinátához tartozó (világtérkép) mezőt. Amennyiben ez a térképen belül van, akkor az eltárolt értéket, ellenkező esetben FIELD::SEA típusút. A koordináta mind a két esetben a kapott i és j értéket tartalmazza.
 
-* A Map::set_tile(..) metódus az adott i és j koordinátához tartozó (alap)mezőt állítja be a térképen - figyelembe véve azt is, hogy ez a térkép valós részéhez tartozzon (azon kívül esőt nem bánt).
+* A *Map::set_tile(..)* metódus az adott i és j koordinátához tartozó (alap)mezőt állítja be a térképen - figyelembe véve azt is, hogy ez a térkép valós részéhez tartozzon (azon kívül esőt nem bánt).
 
-* A Map::tile_in_direction(..) függvény egy kiinduló koordináta alapján visszaadja azt a (világtérkép) mezőt, amely a megadott irányban található. Fontos figyelembe venni, hogy az indexelés nem egyértelműen történik, ennek megadásához a lentebbi (térkép indexelés) kép és hozzá tartozó szöveg ad segítséget. Mivel hatszögekkel ábrázoljuk a világunkat, összesen hat irányt kell megvizsgálni - figyelembe véve mindegyik esetben, hogy páros vagy páratlan oszlopszámú mezőről indulunk ki - mivel ettől függ, hogy a mátrixos ábrázolásnak (belső map_ vector) melyik (i,j) eleme fog kelleni. Az implementáláshoz érdemes a lenti (első) ábrán megfigyelni, hogy a hat irány hogy változtatja a koordinátákat páros és páratlan oszlopszám kiindulva.
+* A *Map::tile_in_direction(..)* függvény egy kiinduló koordináta alapján visszaadja azt a (világtérkép) mezőt, amely a megadott irányban található. Fontos figyelembe venni, hogy az indexelés nem egyértelműen történik, ennek megadásához a lentebbi (térkép indexelés) kép és hozzá tartozó szöveg ad segítséget. Mivel hatszögekkel ábrázoljuk a világunkat, összesen hat irányt kell megvizsgálni - figyelembe véve mindegyik esetben, hogy páros vagy páratlan oszlopszámú mezőről indulunk ki - mivel ettől függ, hogy a mátrixos ábrázolásnak (belső map_ vector) melyik (i,j) eleme fog kelleni. Az implementáláshoz érdemes a lenti (első) ábrán megfigyelni, hogy a hat irány hogy változtatja a koordinátákat páros és páratlan oszlopszám kiindulva.
 
-* A Map::get_tiles_in_radius(..) a lentebb leírt módszerek valamelyike alapján visszaadja egy megadott (i,j) koordinátából kiindulva az r sugarú környezetben lévő mezők listáját. Érdemes felhasználni a Map::tile_in_direction(..) metódust ennek implementálásakor.
+* A *Map::get_tiles_in_radius(..)* a lentebb leírt módszerek valamelyike alapján visszaadja egy megadott (i,j) koordinátából kiindulva az r sugarú környezetben lévő mezők listáját. Érdemes felhasználni a Map::tile_in_direction(..) metódust ennek implementálásakor.
 
 ### Az alapmezők (FIELD):
 
@@ -159,7 +159,7 @@ A mezők neve előtti sorszám azt is jelzi, hogy a bemeneti fájlban milyen int
 
 ## Egyéb segítség:
 
-A térkép reprezentálásához a (hatszög)rácsra mátrixként fogunk tekinteni. Ehhez azonban figyelembe kell venni annak elhelyezkedését és orientációját. A hatszögekre úgy tekintünk majd, hogy azoknak oldala néz “felfelé” és “lefelé”, azaz északi és déli irányba. Emiatt a kelet-nyugati irányban csúcsokkal találkozunk - itt tehát az “átjárás” nem lesz egyértelmű. Ahhoz, hogy az elhelyezkedésből adódó problémákat kezelni tudjuk, a páratlan számú oszlopokat fogjuk (megjelenítésileg) elcsúsztatni lefelé. Egy sor bejárásánál - avagy a kelet / nyugat irányú elmozdulás esetében - ha a kiindulási mező oszlopszáma páros, akkor dél-keleti / dél-nyugati irányba fogunk mozdulni, páratlan esetben pedig észak-kelet/észak-nyugat lesz az elmozdulás iránya. Az észak-dél tengelyen értelemszerűen fogunk lépkedni, az x koordináta változtatásával.
+A térkép reprezentálásához a (hatszög)rácsra mátrixként fogunk tekinteni. Ehhez azonban figyelembe kell venni annak elhelyezkedését és orientációját. A hatszögekre úgy tekintünk majd, hogy azoknak oldala néz *“felfelé”* és *“lefelé”*, azaz északi és déli irányba. Emiatt a kelet-nyugati irányban csúcsokkal találkozunk - itt tehát az *“átjárás”* nem lesz egyértelmű. Ahhoz, hogy az elhelyezkedésből adódó problémákat kezelni tudjuk, a páratlan számú oszlopokat fogjuk (megjelenítésileg) elcsúsztatni lefelé. Egy sor bejárásánál - avagy a kelet/nyugat irányú elmozdulás esetében - ha a kiindulási mező oszlopszáma páros, akkor dél-keleti / dél-nyugati irányba fogunk mozdulni, páratlan esetben pedig észak-kelet/észak-nyugat lesz az elmozdulás iránya. Az észak-dél tengelyen értelemszerűen fogunk lépkedni, az x koordináta változtatásával.
 
 <p align="center">
   <img src="https://github.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/raw/master/img/map_indexing.jpg">
@@ -170,11 +170,11 @@ A térkép érdemleges részének indexelési módja
 
 A környezeti halmazt két módon is meghatározhatjuk:
 
-A t_0 mező a kiindulási, ez jelentse az r=0 sugarú környezetet mind a két esetben.
+A *t_0* mező a kiindulási, ez jelentse az *r=0* sugarú környezetet mind a két esetben.
 
-A rekurzív definíciónál az r>0 sugarú környezet mezőit úgy kapjuk meg, hogy az (r-1) sugarú környezet mezőihez hozzávesszük az összes olyat, melyekkel az ottani mezők szomszédosak (az 1 sugár esetén ez tehát a 6 körülötte lévő mezőt jelenti, a 2 sugarú az ezek mellettit is és így tovább).
+A **rekurzív** definíciónál az r>0 sugarú környezet mezőit úgy kapjuk meg, hogy az (r-1) sugarú környezet mezőihez hozzávesszük az összes olyat, melyekkel az ottani mezők szomszédosak (az 1 sugár esetén ez tehát a 6 körülötte lévő mezőt jelenti, a 2 sugarú az ezek mellettit is és így tovább).
 
-Az iteratív módszernél az r>0 környezet meghatározásához az i € [1..r] intervallum összes (egész) elemére végezzük el a következőket: A kiindulási mezőhöz képest mozduljunk el i távolságot (pl.) északi irányba! Innentől kezdve az alábbi módon kell mozognunk:
+Az **iteratív** módszernél az r>0 környezet meghatározásához az i € [1..r] intervallum összes (egész) elemére végezzük el a következőket: A kiindulási mezőhöz képest mozduljunk el i távolságot (pl.) északi irányba! Innentől kezdve az alábbi módon kell mozognunk:
 
 * Lépjünk i-szer dél-kelet felé
 * Lépjünk i-szer dél felé
@@ -185,18 +185,18 @@ Az iteratív módszernél az r>0 környezet meghatározásához az i € [1..r] 
 
 Ezzel az i sugarú kör szélén sétálunk végig, az összes, közbülső lépés alatt érintett mezőt pedig belevesszük az r sugarú környezet halmazába.
 
-Szemléltetésként érdemes lehet egyfajta “körlapra” gondolni az adott mezőtől r távolságban.
+Szemléltetésként érdemes lehet egyfajta *“körlapra”* gondolni az adott mezőtől r távolságban.
 
 Az alábbi példában a középen lévő, bordóra színezett mezőtől egy távolságra vannak a sárgával jelölt, két távolságra a zölddel, háromra a kékkel, négyre a szürkével, öttel a sötétbarnával stb. jelölt mezők.
 
 <p align="center">
   <img src="https://github.com/SandorBalazsHU/elte-ik-orsi-1-beadando-reloaded/raw/master/img/map_radius.jpg">
 </p>
-A környező mezők és az ahhoz tartozó sugár
+A környező mezők és az ahhoz tartozó sugár.
 
-A fent linkelt ZIP állományban található egy test.cpp fájl is - ezt az impl.cpp fájllal egybe fordítva és futtatva lehet (alapjaiban) ellenőrizni azt, hogy a metódusokat helyesen implementáltátok e. Ez nem teljes körű UNIT-test, csupán arra szolgál, hogy gyors visszajelzést kapjatok a kódról és az implementálandó metódusok működésének helyességéről.
+A fent linkelt ZIP állományban található egy *test.cpp* fájl is - ezt az *impl.cpp* fájllal egybe fordítva és futtatva lehet (alapjaiban) ellenőrizni azt, hogy a metódusokat helyesen implementáltátok e. Ez nem teljes körű UNIT-test, csupán arra szolgál, hogy gyors visszajelzést kapjatok a kódról és az implementálandó metódusok működésének helyességéről.
 
-Ha “mindent jól” írtatok, az alábbiakat kell látni (linuxon, g++-szal fordítva):
+Ha *“mindent jól”* írtatok, az alábbiakat kell látni (linuxon, g++-szal fordítva):
 
 ```
 user@host:> g++ test.cpp impl.cpp -lpthread && ./a.out
@@ -210,11 +210,11 @@ Testing Map::set_tile()...done!
 Testing Map::get_tiles_in_radius()...done!
 
 All tests successfully passed!
-``
+```
 
-A -lpthread flag Windowson nem szükséges, de Linux alapokon sokszor enélkül futási hibát kaphatsz, a megfelelő libek linkelésének hiánya miatt.
+A *-lpthread* flag Windowson nem szükséges, de Linux alapokon sokszor enélkül futási hibát kaphatsz, a megfelelő libek linkelésének hiánya miatt.
 
-Ha egy civilizáció sem szeretne letelepedni (azaz C=0), akkor egy üres output.txt-t kell létrehozni (azaz ne hibakóddal térjen vissza a program).
+Ha egy civilizáció sem szeretne letelepedni *(azaz C=0)*, akkor egy üres *output.txt*-t kell létrehozni (azaz ne hibakóddal térjen vissza a program).
 
 ## Általános elvárások:
 
