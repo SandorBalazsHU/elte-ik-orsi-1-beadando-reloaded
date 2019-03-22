@@ -22,6 +22,7 @@ int field_value(const FIELD& f)
 		case FIELD::SWAMP		: return 1;		break;
 		case FIELD::VILLAGE		: return 6;		break;
 		case FIELD::WHEAT		: return 3;		break;
+		default					: return -42;	break;
 	}
 }
 
@@ -85,21 +86,22 @@ std::istream& operator>>(std::istream& s, Coordinate& p)
 
 std::ostream& operator<<(std::ostream& s, const Tile& t)
 {
-	s << t.first << t.second;
+	s << t.first << " " << t.second;
 	return s;
 }
 
 // UNDONE: Még nincs ötletem
 std::istream& operator>>(std::istream& s, Map& m)
 {
-	for (size_t i = 0; i < m.rows; i++)
+	for (int i = 0; i < m.rows(); i++)
 	{
-		std::vector<FIELD> row();
-		for (size_t j = 0; j < m.cols; j++)
+		std::vector<FIELD> row;
+		for (int j = 0; j < m.cols(); j++)
 		{
 			//row
 		}
 	}
+	return s;
 }
 
 Map::Map()
@@ -114,10 +116,10 @@ Map::Map(const int r, const int c)
 	rows_ = r;
 	cols_ = c;
 	map_ = std::vector<std::vector<FIELD>>();
-	for (size_t i = 0; i < r; i++)
+	for (int i = 0; i < r; i++)
 	{
 		std::vector<FIELD> row = std::vector<FIELD>();
-		for (size_t j = 0; j < c; j++)
+		for (int j = 0; j < c; j++)
 		{
 			row.push_back(FIELD::SEA);
 		}
@@ -160,31 +162,51 @@ void Map::set_tile(const int i, const int j, const FIELD f)
 	}
 }
 
-// UNDONE: Félkész
+// TODO: Ellenõrizendõ! 
 Tile Map::tile_in_direction(int x, int y, const DIRECTION d) const
 {
-	int westShift = 0;
-	if (x % 2 != 0) westShift = -1;
+	int even_shift = 1;
+	if (y % 2 != 0) even_shift = 0;
 
-	int eastShift = 1;
-	if (x % 2 != 0) eastShift = 0;
+	int odd_shift = 0;
+	if (y % 2 != 0) odd_shift = 1;
 
 	switch (d)
 	{
-		case DIRECTION::NORTH_WEST	: return tile_at(x + westShift, y + 1);		break;
-		case DIRECTION::NORTH		: return tile_at(x, y - 1);					break;
-		case DIRECTION::NORTH_EAST	: return tile_at(x - eastShift, y + 1);	break;
-		case DIRECTION::EAST		: return tile_at(0, 0);						break;
-		case DIRECTION::SOUTH_EAST	: return tile_at(x - eastShift, y + 1);	break;
-		case DIRECTION::SOUTH		: return tile_at(x, y + 1);					break;
-		case DIRECTION::SOUTH_WEST	: return tile_at(x + westShift, y - 1);		break;
-		case DIRECTION::WEST		: return tile_at(0, 0);						break;
+		case DIRECTION::NORTH_WEST	: return tile_at(x - even_shift, y - 1);	break;
+		case DIRECTION::NORTH		: return tile_at(x - 1, y);					break;
+		case DIRECTION::NORTH_EAST	: return tile_at(x - even_shift, y + 1);	break;
+		case DIRECTION::EAST		: return tile_at(x, y + 1);					break;
+		case DIRECTION::SOUTH_EAST	: return tile_at(x + odd_shift, y + 1);		break;
+		case DIRECTION::SOUTH		: return tile_at(x + 1, y);					break;
+		case DIRECTION::SOUTH_WEST	: return tile_at(x + odd_shift, y - 1);		break;
+		case DIRECTION::WEST		: return tile_at(x - 1, y);					break;
+		default						: return tile_at(x, y);						break;
 	}
 }
 
-// TODO: Még hátra van
+// Halmazbõvítéses megoldás
 std::set<Tile> Map::get_tiles_in_radius(const int i, const int j, const int r) const
 {
 	std::set<Tile> s;
+	Tile t_0 = tile_at(i, j);
+	s.insert(t_0);
+
+	if (r <= 0) return s;
+
+	for (int i = 0; i < r; i++)
+	{
+		std::set<Tile> tmp;
+		for (Tile t : s) {
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::NORTH));
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::NORTH_WEST));
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::NORTH_EAST));
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::SOUTH));
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::SOUTH_EAST));
+			tmp.insert(tile_in_direction(t.first.x, t.first.y, DIRECTION::SOUTH_WEST));
+		}
+		s.insert(tmp.begin(), tmp.end());
+	}
+
 	return s;
 }

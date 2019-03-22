@@ -232,7 +232,7 @@ void test_all()
 	test_radius();
 }
 
-int main()
+void testMain()
 {
 	test_all();
 	std::endl(std::cout);
