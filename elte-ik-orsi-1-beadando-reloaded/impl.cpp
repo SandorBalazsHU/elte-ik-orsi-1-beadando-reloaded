@@ -163,17 +163,22 @@ void Map::set_tile(const int i, const int j, const FIELD f)
 // UNDONE: Félkész
 Tile Map::tile_in_direction(int x, int y, const DIRECTION d) const
 {
+	int westShift = 0;
+	if (x % 2 != 0) westShift = -1;
+
+	int eastShift = 1;
+	if (x % 2 != 0) eastShift = 0;
 
 	switch (d)
 	{
-		case DIRECTION::NORTH_WEST	: return tile_at(0, y - 1);		break;
-		case DIRECTION::NORTH		: return tile_at(x, y - 1);		break;
-		case DIRECTION::NORTH_EAST	: return tile_at(0, 0);			break;
-		case DIRECTION::EAST		: return tile_at(0, 0);			break;
-		case DIRECTION::SOUTH_EAST	: return tile_at(0, 0);			break;
-		case DIRECTION::SOUTH		: return tile_at(x, y + 1);		break;
-		case DIRECTION::SOUTH_WEST	: return tile_at(0, 0);			break;
-		case DIRECTION::WEST		: return tile_at(0, 0);			break;
+		case DIRECTION::NORTH_WEST	: return tile_at(x + westShift, y + 1);		break;
+		case DIRECTION::NORTH		: return tile_at(x, y - 1);					break;
+		case DIRECTION::NORTH_EAST	: return tile_at(x - eastShift, y + 1);	break;
+		case DIRECTION::EAST		: return tile_at(0, 0);						break;
+		case DIRECTION::SOUTH_EAST	: return tile_at(x - eastShift, y + 1);	break;
+		case DIRECTION::SOUTH		: return tile_at(x, y + 1);					break;
+		case DIRECTION::SOUTH_WEST	: return tile_at(x + westShift, y - 1);		break;
+		case DIRECTION::WEST		: return tile_at(0, 0);						break;
 	}
 }
 
