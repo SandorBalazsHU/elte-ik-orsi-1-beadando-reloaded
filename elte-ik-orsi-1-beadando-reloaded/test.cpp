@@ -232,7 +232,7 @@ void test_all()
 	test_radius();
 }
 
-void testMain()
+int test_main()
 {
 	test_all();
 	std::endl(std::cout);
@@ -244,4 +244,5 @@ void testMain()
 	{
 		std::cout << "All tests successfully passed!" << std::endl;
 	}
+	return 0;
 }

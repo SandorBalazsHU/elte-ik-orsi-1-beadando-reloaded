@@ -90,7 +90,6 @@ std::ostream& operator<<(std::ostream& s, const Tile& t)
 	return s;
 }
 
-// UNDONE: Még nincs ötletem
 std::istream& operator>>(std::istream& s, Map& m)
 {
 	for (int i = 0; i < m.rows(); i++)
@@ -98,8 +97,11 @@ std::istream& operator>>(std::istream& s, Map& m)
 		std::vector<FIELD> row;
 		for (int j = 0; j < m.cols(); j++)
 		{
-			//row
+			int c;
+			s >> c;
+			row.push_back(field_from_int(c));
 		}
+		m.map_.push_back(row);
 	}
 	return s;
 }
@@ -113,17 +115,25 @@ Map::Map()
 
 Map::Map(const int r, const int c)
 {
-	rows_ = r;
-	cols_ = c;
-	map_ = std::vector<std::vector<FIELD>>();
-	for (int i = 0; i < r; i++)
-	{
-		std::vector<FIELD> row = std::vector<FIELD>();
-		for (int j = 0; j < c; j++)
+	if (r > 0 && c > 0) {
+		rows_ = r;
+		cols_ = c;
+		map_ = std::vector<std::vector<FIELD>>();
+		for (int i = 0; i < r; i++)
 		{
-			row.push_back(FIELD::SEA);
+			std::vector<FIELD> row = std::vector<FIELD>();
+			for (int j = 0; j < c; j++)
+			{
+				row.push_back(FIELD::SEA);
+			}
+			map_.push_back(row);
 		}
-		map_.push_back(row);
+	}
+	else
+	{
+		rows_ = 0;
+		cols_ = 0;
+		map_ = std::vector<std::vector<FIELD>>();
 	}
 }
 
