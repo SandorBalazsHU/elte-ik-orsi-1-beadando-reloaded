@@ -106,6 +106,19 @@ std::istream& operator>>(std::istream& s, Map& m)
 	return s;
 }
 
+std::ostream& operator<<(std::ostream& s, const Map& m)
+{
+	for (int i = 0; i < m.rows(); i++)
+	{
+		for (int j = 0; j < m.cols(); j++)
+		{
+			s << m.map_[i][j] << " ";
+		}
+		s << std::endl;
+	}
+	return s;
+}
+
 Map::Map()
 {
 	rows_ = 0;
@@ -118,22 +131,11 @@ Map::Map(const int r, const int c)
 	if (r > 0 && c > 0) {
 		rows_ = r;
 		cols_ = c;
-		map_ = std::vector<std::vector<FIELD>>();
-		for (int i = 0; i < r; i++)
-		{
-			std::vector<FIELD> row = std::vector<FIELD>();
-			for (int j = 0; j < c; j++)
-			{
-				row.push_back(FIELD::SEA);
-			}
-			map_.push_back(row);
-		}
 	}
 	else
 	{
 		rows_ = 0;
 		cols_ = 0;
-		map_ = std::vector<std::vector<FIELD>>();
 	}
 }
 
