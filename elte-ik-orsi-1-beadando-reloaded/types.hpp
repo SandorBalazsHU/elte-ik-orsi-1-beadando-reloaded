@@ -43,6 +43,7 @@ struct Coordinate {
 	Coordinate(const Coordinate&) = default;
 	Coordinate& operator=(const Coordinate&) = default;
 };
+
 bool operator<(const Coordinate& a, const Coordinate& b);
 
 using Tile = std::pair<Coordinate, FIELD>;

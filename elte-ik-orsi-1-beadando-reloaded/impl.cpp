@@ -27,7 +27,7 @@ int field_value(const FIELD& f)
 
 int tile_value(const Tile& f)
 {
-	return 0;
+	return field_value(f.second);
 }
 
 bool operator<(const Coordinate& a, const Coordinate& b)
@@ -58,68 +58,126 @@ std::ostream& operator<<(std::ostream& s, const FIELD& f)
 
 std::ostream& operator<<(std::ostream& s, const DIRECTION& d)
 {
+	switch (d)
+	{
+		case DIRECTION::NORTH_WEST	: s << "NORTH_WEST";	break;
+		case DIRECTION::NORTH		: s << "NORTH";			break;
+		case DIRECTION::NORTH_EAST	: s << "NORTH_EAST";	break;
+		case DIRECTION::EAST		: s << "EAST";			break;
+		case DIRECTION::SOUTH_EAST	: s << "SOUTH_EAST";	break;
+		case DIRECTION::SOUTH		: s << "SOUTH";			break;
+		case DIRECTION::SOUTH_WEST	: s << "SOUTH_WEST";	break;
+		case DIRECTION::WEST		: s << "WEST";			break;
+	}
 	return s;
 }
 
 std::ostream& operator<<(std::ostream& s, const Coordinate& p)
 {
+	s << "(" << p.x << "," << p.y << ")";
 	return s;
 }
 std::istream& operator>>(std::istream& s, Coordinate& p)
 {
+	s >> p.x >> p.y;
 	return s;
 }
 
 std::ostream& operator<<(std::ostream& s, const Tile& t)
 {
+	s << t.first << t.second;
 	return s;
 }
 
+// UNDONE: Még nincs ötletem
 std::istream& operator>>(std::istream& s, Map& m)
 {
-	return s;
+	for (size_t i = 0; i < m.rows; i++)
+	{
+		std::vector<FIELD> row();
+		for (size_t j = 0; j < m.cols; j++)
+		{
+			//row
+		}
+	}
 }
 
 Map::Map()
 {
-
+	rows_ = 0;
+	cols_ = 0;
+	map_ = std::vector<std::vector<FIELD>>();
 }
 
 Map::Map(const int r, const int c)
 {
-
+	rows_ = r;
+	cols_ = c;
+	map_ = std::vector<std::vector<FIELD>>();
+	for (size_t i = 0; i < r; i++)
+	{
+		std::vector<FIELD> row = std::vector<FIELD>();
+		for (size_t j = 0; j < c; j++)
+		{
+			row.push_back(FIELD::SEA);
+		}
+		map_.push_back(row);
+	}
 }
 
 int Map::rows() const
 {
-	return 0;
+	return rows_;
 }
 
 int Map::cols() const
 {
-	return 0;
+	return cols_;
 }
 
 bool Map::in_range(const int x, const int y) const
 {
-	return false;
+	return ((0 <= x) && (x < rows_)) && ((0 <= y) && (y < cols_));
 }
 
 Tile Map::tile_at(const int i, const int j) const
 {
-	return std::make_pair(Coordinate(-1, -1), FIELD::SEA);
+	if (in_range(i,j))
+	{
+		return std::make_pair(Coordinate(i, j), map_[i][j]);
+	}
+	else
+	{
+		return std::make_pair(Coordinate(i, j), FIELD::SEA);
+	}
 }
 
 void Map::set_tile(const int i, const int j, const FIELD f)
 {
-
+	if (in_range(i, j))
+	{
+		map_[i][j] = f;
+	}
 }
 
+// UNDONE: Félkész
 Tile Map::tile_in_direction(int x, int y, const DIRECTION d) const
 {
-	return tile_at(0, 0);
+
+	switch (d)
+	{
+		case DIRECTION::NORTH_WEST	: return tile_at(0, y - 1);		break;
+		case DIRECTION::NORTH		: return tile_at(x, y - 1);		break;
+		case DIRECTION::NORTH_EAST	: return tile_at(0, 0);			break;
+		case DIRECTION::EAST		: return tile_at(0, 0);			break;
+		case DIRECTION::SOUTH_EAST	: return tile_at(0, 0);			break;
+		case DIRECTION::SOUTH		: return tile_at(x, y + 1);		break;
+		case DIRECTION::SOUTH_WEST	: return tile_at(0, 0);			break;
+		case DIRECTION::WEST		: return tile_at(0, 0);			break;
+	}
 }
 
+// TODO: Még hátra van
 std::set<Tile> Map::get_tiles_in_radius(const int i, const int j, const int r) const
 {
 	std::set<Tile> s;
