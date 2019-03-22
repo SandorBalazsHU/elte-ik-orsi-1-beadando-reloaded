@@ -52,16 +52,12 @@ FIELD field_from_int(const int i);
 int field_value(const FIELD& f);
 int tile_value(const Tile& f);
 
-/*
 std::ostream& operator<<(std::ostream& s, const Coordinate& p);
 std::ostream& operator<<(std::ostream& s, const DIRECTION& d);
 std::ostream& operator<<(std::ostream& s, const FIELD& f);
 std::ostream& operator<<(std::ostream& s, const Tile& t);
 
 std::istream& operator>>(std::istream& s, Coordinate& p);
-
-*/
-
 
 class Map {
 	int rows_, cols_;

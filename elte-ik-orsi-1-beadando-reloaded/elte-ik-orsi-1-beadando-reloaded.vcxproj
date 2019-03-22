@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="impl.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="types.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
